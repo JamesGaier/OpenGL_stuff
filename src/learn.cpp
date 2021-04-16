@@ -4,6 +4,7 @@
 // OpenGL deps
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+#include <glm/glm.hpp>
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 {
@@ -196,10 +197,7 @@ int main()
     glGenBuffers(2, VBOs);
     glGenBuffers(1, &EBO);
 
-    // bind the Vertex Array Object
     glBindVertexArray(VAOs[0]);
-
-    // set up the first set of VAOs and VBOs
     glBindBuffer(GL_ARRAY_BUFFER, VBOs[0]);
     glBufferData(GL_ARRAY_BUFFER, sizeof(firstTriangle), firstTriangle, GL_STATIC_DRAW);
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void *)0);
@@ -215,11 +213,27 @@ int main()
     // bind and populate the element buffer object
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
-    
-
-
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
+
+
+    int nAttrib;
+    glGetIntegerv(GL_MAX_VERTEX_ATTRIBS, &nAttrib);
+    std::cout << "The maximum number of attributes supported is: " << nAttrib << std::endl;
+
+    // example of swizzling
+    glm::vec2 someVec;
+    someVec.x = 1.0f;
+    someVec.y = 1.0f;
+    // dont swizzle there is a huge performance hit if you do
+    // glm::vec3 differentVec = someVec.xyx; // this fills in each component with the specified component
+
+
+    
+    /*
+    glm::vec3 anotherVec = differentVec.zyw;
+    glm::vec4 otherVec = someVec.xxxx + anotherVec.yxzy;
+    */
 
     while(!glfwWindowShouldClose(window))
     {
