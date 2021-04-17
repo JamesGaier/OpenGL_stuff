@@ -15,6 +15,20 @@ add_executable(
 		include/shader.h
 )
 add_executable(textures src/textures.cpp)
+add_executable(math src/math.cpp)
+add_executable(perspective src/perspective.cpp)
+add_executable(rotating_cube src/rotating_cube.cpp)
+add_executable(
+		look_around 
+		src/look_around.cpp
+		include/utils.h
+)
+add_executable(
+		camera_controller 
+		src/camera_controller.cpp
+		include/utils.h
+		include/camera.h
+)
 
 target_link_libraries(
 	learn 
@@ -58,6 +72,52 @@ target_link_libraries(
 target_link_libraries(
 	textures
 	PRIVATE
+	glad
+	glfw
+	glm
+	stb_image
+)
+
+target_link_libraries(
+	math 
+	PRIVATE 
+	glad
+	glfw
+	glm
+	stb_image
+)
+
+target_link_libraries(
+	perspective 
+	PRIVATE 
+	glad
+	glfw
+	glm
+	stb_image
+)
+
+
+target_link_libraries(
+	rotating_cube 
+	PRIVATE 
+	glad
+	glfw
+	glm
+	stb_image
+)
+
+target_link_libraries(
+	look_around 
+	PRIVATE 
+	glad
+	glfw
+	glm
+	stb_image
+)
+
+target_link_libraries(
+	camera_controller 
+	PRIVATE 
 	glad
 	glfw
 	glm
